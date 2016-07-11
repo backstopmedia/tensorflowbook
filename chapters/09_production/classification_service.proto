@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+message ClassificationRequest {
+	// JPEG encoded string of the image.
+	bytes input = 1;
+};
+
+message ClassificationResponse {
+	repeated ClassificationClass classes = 1;
+};
+
+message ClassificationClass {
+	string name = 1;
+	float score = 2;
+}
+
+service ClassificationService {
+	rpc classify(ClassificationRequest) returns (ClassificationResponse);
+}

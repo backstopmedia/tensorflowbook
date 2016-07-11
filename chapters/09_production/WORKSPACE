@@ -1,0 +1,31 @@
+workspace(name = "serving")
+
+local_repository(
+    name = "tf_serving",
+    path = __workspace_dir__ + "/tf_serving",
+)
+
+local_repository(
+    name = "org_tensorflow",
+    path = __workspace_dir__ + "/tf_serving/tensorflow",
+)
+
+load('//tf_serving/tensorflow/tensorflow:workspace.bzl', 'tf_workspace')
+tf_workspace("tf_serving/tensorflow/", "@org_tensorflow")
+
+bind(
+    name = "libssl",
+    actual = "@boringssl_git//:ssl",
+)
+
+bind(
+    name = "zlib",
+    actual = "@zlib_archive//:zlib",
+)
+
+# only needed for inception model export
+
+local_repository(
+    name = "inception_model",
+    path = __workspace_dir__ + "/tf_serving/tf_models/inception",
+)
