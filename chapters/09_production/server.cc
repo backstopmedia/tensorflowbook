@@ -46,8 +46,8 @@ class ClassificationServiceImpl final : public ClassificationService::Service {
 		}
 
 		// Transform protobuf input to inference input tensor.
-		tensorflow::Tensor input(tensorflow::DT_STRING, {1});
-		input.flat<string>()(0) = request->input();
+		tensorflow::Tensor input(tensorflow::DT_STRING, tensorflow::TensorShape());
+		input.scalar<string>()() = request->input();
 
 		vector<tensorflow::Tensor> outputs;
 
@@ -68,8 +68,6 @@ class ClassificationServiceImpl final : public ClassificationService::Service {
 			classificationClass->set_name(outputs[0].flat<string>()(i));
 			classificationClass->set_score(outputs[1].flat<float>()(i));
 		}
-
-		cout << "Output" << endl;
 
         return Status::OK;
 

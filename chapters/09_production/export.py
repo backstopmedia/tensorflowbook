@@ -48,11 +48,15 @@ with tf.Session() as sess:
         print("Checkpoint file not found")
         raise SystemExit
 
-    scores, classes = tf.nn.top_k(y, NUM_CLASSES_TO_RETURN)
+    scores, class_ids = tf.nn.top_k(y, NUM_CLASSES_TO_RETURN)
+
+    # for simplification we will just return the class ids, we should return the names instead
+    classes = tf.contrib.lookup.index_to_string(tf.to_int64(class_ids),
+        mapping=tf.constant([str(i) for i in range(1001)]))
 
     model_exporter = exporter.Exporter(saver)
     signature = exporter.classification_signature(
-        input_tensor=x, classes_tensor=classes, scores_tensor=scores)
-    model_exporter.init(default_graph_signature=signature)
+        input_tensor=external_x, classes_tensor=classes, scores_tensor=scores)
+    model_exporter.init(default_graph_signature=signature, init_op=tf.initialize_all_tables())
     model_exporter.export(sys.argv[1] + "/export", tf.constant(time.time()), sess)
 

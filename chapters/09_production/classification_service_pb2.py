@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='classification_service.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x1c\x63lassification_service.proto\"&\n\x15\x43lassificationRequest\x12\r\n\x05input\x18\x01 \x01(\x0c\"?\n\x16\x43lassificationResponse\x12%\n\x07\x63lasses\x18\x01 \x03(\x0b\x32\x14.ClassificationClass\"8\n\x13\x43lassificationClass\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0bprobability\x18\x02 \x01(\x02\x32T\n\x15\x43lassificationService\x12;\n\x08\x63lassify\x12\x16.ClassificationRequest\x1a\x17.ClassificationResponseb\x06proto3')
+  serialized_pb=_b('\n\x1c\x63lassification_service.proto\"&\n\x15\x43lassificationRequest\x12\r\n\x05input\x18\x01 \x01(\x0c\"?\n\x16\x43lassificationResponse\x12%\n\x07\x63lasses\x18\x01 \x03(\x0b\x32\x14.ClassificationClass\"2\n\x13\x43lassificationClass\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05score\x18\x02 \x01(\x02\x32T\n\x15\x43lassificationService\x12;\n\x08\x63lassify\x12\x16.ClassificationRequest\x1a\x17.ClassificationResponseb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -103,7 +103,7 @@ _CLASSIFICATIONCLASS = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='probability', full_name='ClassificationClass.probability', index=1,
+      name='score', full_name='ClassificationClass.score', index=1,
       number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
@@ -122,7 +122,7 @@ _CLASSIFICATIONCLASS = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=137,
-  serialized_end=193,
+  serialized_end=187,
 )
 
 _CLASSIFICATIONRESPONSE.fields_by_name['classes'].message_type = _CLASSIFICATIONCLASS
