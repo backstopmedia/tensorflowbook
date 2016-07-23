@@ -4,7 +4,7 @@
 
 * **p.111** "If you encode the symbols assuming any other probability for the q_i than the real p_i need more bits for encoding each symbol.". Should read as "...than the real p_i, you need more..." - _Found 7/22/2016_
 
-* **p.114** "You can proof that if...". Should read as "You can prove that if..." - _Found 7/22/2016_
+* **p.115** "You can proof that if...". Should read as "You can prove that if..." - _Found 7/22/2016_
 
 * **p.115** "b = tf.Variable(tf.zeros([3], name="bias"))". Should read as "b = tf.Variable(tf.zeros([3]), name="bias")" - _Found 7/22/2016_
 
