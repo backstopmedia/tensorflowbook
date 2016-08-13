@@ -1,7 +1,14 @@
+import tensorflow as tf
+import numpy as np
+
+from helpers import overwrite_graph
+from Preprocessing import Preprocessing
+from PredictiveCodingModel import PredictiveCodingModel
+
 class Sampling:
 
     @overwrite_graph
-    def __init__(self, params, length):
+    def __init__(self, params):
         self.params = params
         self.prep = Preprocessing([], 2, self.params.batch_size)
         self.sequence = tf.placeholder(

@@ -1,8 +1,10 @@
 import os
+import re
 import tensorflow as tf
 import numpy as np
 
 from helpers import overwrite_graph
+from helpers import ensure_directory
 from ArxivAbstracts import ArxivAbstracts
 from Preprocessing import Preprocessing
 from PredictiveCodingModel import PredictiveCodingModel
@@ -48,7 +50,7 @@ class Training:
             self.params.checkpoint_dir, 'model'), self.epoch)
         perplexity = 2 ** -(sum(self.logprobs[-self.params.epoch_size:]) /
                             self.params.epoch_size)
-        print('Epoch {:2d} perplexity {:5.1f}'.format(self.epoch, perplexity))
+        print('Epoch {:2d} perplexity {:5.4f}'.format(self.epoch, perplexity))
 
     def _init_or_load_session(self):
         self.sess = tf.Session()

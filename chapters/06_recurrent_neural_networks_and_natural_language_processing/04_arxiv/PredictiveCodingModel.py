@@ -91,7 +91,7 @@ class PredictiveCodingModel:
 
     def _average(self, data):
         data *= self.mask
-        length = tf.reduce_sum(self.length, 1)
+        length = tf.reduce_sum(self.length, 0)
         data = tf.reduce_sum(data, reduction_indices=1) / length
         data = tf.reduce_mean(data)
         return data
