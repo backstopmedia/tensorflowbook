@@ -2,20 +2,20 @@ workspace(name = "serving")
 
 local_repository(
     name = "tf_serving",
-    path = __workspace_dir__ + "/tf_serving",
+    path = "tf_serving",
 )
 
 local_repository(
     name = "org_tensorflow",
-    path = __workspace_dir__ + "/tf_serving/tensorflow",
+    path = "tf_serving/tensorflow",
 )
 
-load('//tf_serving/tensorflow/tensorflow:workspace.bzl', 'tf_workspace')
-tf_workspace("tf_serving/tensorflow/", "@org_tensorflow")
+load('@org_tensorflow//tensorflow:workspace.bzl', 'tf_workspace')
+tf_workspace()
 
 bind(
     name = "libssl",
-    actual = "@boringssl_git//:ssl",
+    actual = "@boringssl//:ssl",
 )
 
 bind(
@@ -27,5 +27,5 @@ bind(
 
 local_repository(
     name = "inception_model",
-    path = __workspace_dir__ + "/tf_serving/tf_models/inception",
+    path = "tf_serving/tf_models/inception",
 )
