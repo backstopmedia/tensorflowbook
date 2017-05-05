@@ -20,7 +20,7 @@ def inference(X):
 
 
 def loss(X, Y):
-    return tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(combine_inputs(X), Y))
+    return tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=combine_inputs(X), labels=Y))
 
 
 def read_csv(batch_size, file_name, record_defaults):
@@ -54,7 +54,7 @@ def inputs():
 
     # Finally we pack all the features in a single matrix;
     # We then transpose to have a matrix with one example per row and one feature per column.
-    features = tf.transpose(tf.pack([is_first_class, is_second_class, is_third_class, gender, age]))
+    features = tf.transpose(tf.stack([is_first_class, is_second_class, is_third_class, gender, age]))
     survived = tf.reshape(survived, [100, 1])
 
     return features, survived
@@ -69,12 +69,12 @@ def evaluate(sess, X, Y):
 
     predicted = tf.cast(inference(X) > 0.5, tf.float32)
 
-    print sess.run(tf.reduce_mean(tf.cast(tf.equal(predicted, Y), tf.float32)))
+    print(sess.run(tf.reduce_mean(tf.cast(tf.equal(predicted, Y), tf.float32))))
 
 # Launch the graph in a session, setup boilerplate
 with tf.Session() as sess:
 
-    tf.initialize_all_variables().run()
+    tf.global_variables_initializer().run()
 
     X, Y = inputs()
 
@@ -90,7 +90,7 @@ with tf.Session() as sess:
         sess.run([train_op])
         # for debugging and learning purposes, see how the loss gets decremented thru training steps
         if step % 10 == 0:
-            print "loss: ", sess.run([total_loss])
+            print("loss: ", sess.run([total_loss]))
 
     evaluate(sess, X, Y)
 
