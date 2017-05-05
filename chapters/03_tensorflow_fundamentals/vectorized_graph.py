@@ -32,27 +32,27 @@ with graph.as_default():
         # Separate output layer
         with tf.name_scope("output"):
             d = tf.add(b, c, name="add_d")
-            output = tf.sub(d, previous_value, name="output")
+            output = tf.subtract(d, previous_value, name="output")
             update_prev = previous_value.assign(output)
     
     # Summary Operations
     with tf.name_scope("summaries"):
-        tf.scalar_summary(b'output', output, name="output_summary")  # Creates summary for output node
-        tf.scalar_summary(b'product of inputs', b, name="prod_summary")
-        tf.scalar_summary(b'sum of inputs', c, name="sum_summary")
+        tf.summary.scalar('output', output)  # Creates summary for output node
+        tf.summary.scalar('product of inputs', b)
+        tf.summary.scalar('sum of inputs', c)
     
     # Global Variables and Operations
     with tf.name_scope("global_ops"):
         # Initialization Op
-        init = tf.initialize_all_variables()
+        init = tf.global_variables_initializer()
         # Collect all summary Ops in graph
-        merged_summaries = tf.merge_all_summaries()
+        merged_summaries = tf.summary.merge_all()
 
 # Start a Session, using the explicitly created Graph
 sess = tf.Session(graph=graph)
 
 # Open a SummaryWriter to save summaries
-writer = tf.train.SummaryWriter('./improved_graph', graph)
+writer = tf.summary.FileWriter('./improved_graph', graph)
 
 # Initialize Variables
 sess.run(init)
