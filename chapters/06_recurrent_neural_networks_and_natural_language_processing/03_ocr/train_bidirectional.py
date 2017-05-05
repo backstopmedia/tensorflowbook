@@ -11,7 +11,7 @@ from BidirectionalSequenceLabellingModel import \
 from batched import batched
 
 params = AttrDict(
-    rnn_cell=tf.nn.rnn_cell.GRUCell,
+    rnn_cell=tf.contrib.rnn.GRUCell,
     rnn_hidden=300,
     optimizer=tf.train.RMSPropOptimizer(0.002),
     gradient_clipping=5,
@@ -51,7 +51,7 @@ model = BidirectionalSequenceLabellingModel(data, target, params)
 batches = batched(train_data, train_target, params.batch_size)
 
 sess = tf.Session()
-sess.run(tf.initialize_all_variables())
+sess.run(tf.global_variables_initializer())
 for index, batch in enumerate(batches):
     batch_data = batch[0]
     batch_target = batch[1]
