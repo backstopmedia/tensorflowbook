@@ -29,13 +29,13 @@ def train(total_loss):
 
 
 def evaluate(sess, X, Y):
-    print sess.run(inference([[80., 25.]])) # ~ 303
-    print sess.run(inference([[65., 25.]])) # ~ 256
+    print(sess.run(inference([[80., 25.]]))) # ~ 303
+    print(sess.run(inference([[65., 25.]]))) # ~ 256
 
 # Launch the graph in a session, setup boilerplate
 with tf.Session() as sess:
 
-    tf.initialize_all_variables().run()
+    tf.global_variables_initializer().run()
 
     X, Y = inputs()
 
@@ -50,7 +50,7 @@ with tf.Session() as sess:
     for step in range(training_steps):
         sess.run([train_op])
         if step % 10 == 0:
-            print "loss: ", sess.run([total_loss])
+            print("loss: ", sess.run([total_loss]))
 
     evaluate(sess, X, Y)
 

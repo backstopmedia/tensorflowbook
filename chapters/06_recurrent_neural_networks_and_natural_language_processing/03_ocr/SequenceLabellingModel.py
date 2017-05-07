@@ -24,7 +24,7 @@ class SequenceLabellingModel:
     @lazy_property
     def prediction(self):
         output, _ = tf.nn.dynamic_rnn(
-            tf.nn.rnn_cell.GRUCell(self.params.rnn_hidden),
+            tf.contrib.rnn.GRUCell(self.params.rnn_hidden),
             self.data,
             dtype=tf.float32,
             sequence_length=self.length,

@@ -12,7 +12,7 @@ WIKI_VOCAB_DIR = '../01_wikipedia/wikipedia'
 WIKI_EMBED_DIR = '../01_wikipedia/wikipedia'
 
 params = AttrDict(
-    rnn_cell=tf.nn.rnn_cell.GRUCell,
+    rnn_cell=tf.contrib.rnn.GRUCell,
     rnn_hidden=300,
     optimizer=tf.train.RMSPropOptimizer(0.002),
     batch_size=20,
@@ -31,7 +31,7 @@ target = tf.placeholder(tf.float32, [None, 2])
 model = SequenceClassificationModel(data, target, params)
 
 sess = tf.Session()
-sess.run(tf.initialize_all_variables())
+sess.run(tf.global_variables_initializer())
 for index, batch in enumerate(batches):
     feed = {data: batch[0], target: batch[1]}
     error, _ = sess.run([model.error, model.optimize], feed)

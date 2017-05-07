@@ -1,3 +1,6 @@
+* Example code has been modified to support Tensorflow 1.0 or higher API by BGPark
+* If you are using an IDE such as PyCharm, it is strongly recommended that you create a project for each chapter. If not, pay attention to the directory relative path of the dataset.
+
 # _TensorFlow for Machine Intelligence_
 
 ![TensorFlow for Machine Intelligence book cover](img/book_cover.jpg)
