@@ -1,5 +1,6 @@
 # Softmax example in TF using the classical Iris dataset
 # Download iris.data from https://archive.ics.uci.edu/ml/datasets/Iris
+# Be sure to remove the last empty line of it before running the example
 
 import tensorflow as tf
 import os
@@ -23,9 +24,9 @@ def loss(X, Y):
 
 
 def read_csv(batch_size, file_name, record_defaults):
-    filename_queue = tf.train.string_input_producer([os.path.dirname(__file__) + "/" + file_name])
+    filename_queue = tf.train.string_input_producer([os.path.dirname(os.path.abspath(__file__)) + "/" + file_name])
 
-    reader = tf.TextLineReader(skip_header_lines=1)
+    reader = tf.TextLineReader()
     key, value = reader.read(filename_queue)
 
     # decode_csv will convert a Tensor from type string (the text line) in
