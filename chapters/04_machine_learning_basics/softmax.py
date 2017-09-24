@@ -8,7 +8,7 @@ import os
 # this time weights form a matrix, not a column vector, one "weight vector" per class.
 W = tf.Variable(tf.zeros([4, 3]), name="weights")
 # so do the biases, one per class.
-b = tf.Variable(tf.zeros([3], name="bias"))
+b = tf.Variable(tf.zeros([3]), name="bias")
 
 
 def combine_inputs(X):
