@@ -11,7 +11,7 @@ def inference(X):
 
 
 def loss(X, Y):
-    Y_predicted = inference(X)
+    Y_predicted = tf.transpose(inference(X)) # make it a row vector
     return tf.reduce_sum(tf.squared_difference(Y, Y_predicted))
 
 
@@ -24,13 +24,15 @@ def inputs():
 
 
 def train(total_loss):
-    learning_rate = 0.0000001
+    learning_rate = 0.000001
     return tf.train.GradientDescentOptimizer(learning_rate).minimize(total_loss)
 
 
 def evaluate(sess, X, Y):
-    print sess.run(inference([[80., 25.]])) # ~ 303
-    print sess.run(inference([[65., 25.]])) # ~ 256
+    print sess.run(inference([[50., 20.]])) # ~ 303
+    print sess.run(inference([[50., 70.]])) # ~ 256
+    print sess.run(inference([[90., 20.]])) # ~ 303
+    print sess.run(inference([[90., 70.]])) # ~ 256
 
 # Launch the graph in a session, setup boilerplate
 with tf.Session() as sess:
@@ -46,12 +48,13 @@ with tf.Session() as sess:
     threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 
     # actual training loop
-    training_steps = 1000
+    training_steps = 10000
     for step in range(training_steps):
         sess.run([train_op])
-        if step % 10 == 0:
-            print "loss: ", sess.run([total_loss])
+        if step % 1000 == 0:
+            print "Epoch:", step, " loss: ", sess.run(total_loss)
 
+    print "Final model W=", sess.run(W), "b=", sess.run(b)
     evaluate(sess, X, Y)
 
     coord.request_stop()
