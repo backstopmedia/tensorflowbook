@@ -10,7 +10,7 @@ import time
 import sys
 
 import tensorflow as tf
-from tensorflow_serving.session_bundle import exporter
+from tensorflow.contrib.session_bundle import exporter
 from inception import inception_model
 
 NUM_CLASSES_TO_RETURN = 10
@@ -43,7 +43,7 @@ with tf.Session() as sess:
     # Restore variables from training checkpoints.
     ckpt = tf.train.get_checkpoint_state(sys.argv[1])
     if ckpt and ckpt.model_checkpoint_path:
-        saver.restore(sess, sys.argv[1] + "/" + ckpt.model_checkpoint_path)
+        saver.restore(sess, ckpt.model_checkpoint_path)
     else:
         print("Checkpoint file not found")
         raise SystemExit

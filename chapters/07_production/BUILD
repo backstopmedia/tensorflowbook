@@ -4,7 +4,7 @@ py_binary(
         "export.py",
     ],
     deps = [
-        "@tf_serving//tensorflow_serving/session_bundle:exporter",
+        "@org_tensorflow//tensorflow/contrib/session_bundle:exporter",
         "@org_tensorflow//tensorflow:tensorflow_py",
         # only needed for inception model export
         "@inception_model//inception",
